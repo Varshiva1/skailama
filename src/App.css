@@ -2,14 +2,27 @@
   margin: 0;
   padding: 0;
 }
-#root {
+#root,
+.ant-modal-root {
   --primary-color: #7e22ce;
+  --link: #085fce;
   --white: #ffffff;
+  --grey: #838383;
 }
 .flex {
   display: flex;
   align-items: center;
   gap: 1em;
+}
+.flex-col {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+.space-between {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 .container {
   width: 85%;
@@ -27,4 +40,7 @@ h1 {
   font-weight: 400;
   line-height: 1;
   color: var(--white);
+}
+h2 {
+  font-size: 30px;
 }

@@ -1,0 +1,28 @@
+.no_project_container {
+  gap: 2em;
+  align-items: center;
+}
+.no_project_text {
+  color: var(--grey);
+  width: 48%;
+  margin: auto;
+  text-align: center;
+}
+.project_card {
+  border: 1px solid #999999;
+  border-radius: 10px;
+  padding: 0.5em;
+}
+.project_name_initials {
+  text-transform: uppercase;
+  background: #f8a01d;
+  font-size: 40px;
+  padding: 10px 20px;
+  font-weight: 700;
+  color: white;
+  border-radius: inherit;
+}
+.project_name {
+  color: var(--primary-color);
+  font-weight: 700;
+}

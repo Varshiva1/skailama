@@ -1,17 +1,21 @@
+.welcome_page {
+  display: flex;
+  height: 100vh;
+}
 .login_mask_bg {
-  width: 60%;
+  width: 70%;
   background-image: url("../../assets/icons/login-bg-mask.svg");
   background-color: var(--primary-color);
-  height: 94vh;
   background-repeat: no-repeat;
   background-size: cover;
   padding: 3em 5em;
   color: var(--white);
 }
 .login_container {
-  width: 40%;
+  width: 30%;
   align-self: flex-start;
-  padding-top: 3em;
+  padding: 3em;
+  text-align: center;
 }
 .welcome_text {
   font-size: 30px;
