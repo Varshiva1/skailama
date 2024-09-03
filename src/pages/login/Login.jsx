@@ -1,4 +1,3 @@
-import { useState } from "react";
 import fetchApi from "../../api-service";
 import styles from "./styles.module.css";
 import Button from "../../components/Button";
@@ -11,8 +10,6 @@ import apiEndPoints from "../../api-service/apiEndPoints.json";
 export default function Login() {
   const navigate = useNavigate();
   const [form] = Form.useForm();
-
-  const [userDetails, setUserDetails] = useState({});
 
   const handleLogin = async (v) => {
     const res = await fetchApi.post(apiEndPoints.LOGIN, v);
@@ -51,30 +48,14 @@ export default function Login() {
         <br />
         <div className="flex-col">
           <Form form={form} onFinish={handleLogin}>
-            <Form.Item
-              name="username"
-              rules={[{ required: true, message: "" }]}
-            >
-              <Input
-                placeholder="Email Address"
-                size="large"
-                onChange={(e) =>
-                  setUserDetails({ ...userDetails, username: e.target.value })
-                }
-              />
+            <Form.Item name="email" rules={[{ required: true, message: "" }]}>
+              <Input placeholder="Email Address" size="large" />
             </Form.Item>
             <Form.Item
               name="password"
               rules={[{ required: true, message: "" }]}
             >
-              <Input
-                placeholder="Password"
-                type="password"
-                size="large"
-                onChange={(e) =>
-                  setUserDetails({ ...userDetails, password: e.target.value })
-                }
-              />
+              <Input placeholder="Password" type="password" size="large" />
             </Form.Item>
             <div className="space-between">
               <p>
