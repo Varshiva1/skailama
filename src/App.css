@@ -1,0 +1,30 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+#root {
+  --primary-color: #7e22ce;
+  --white: #ffffff;
+}
+.flex {
+  display: flex;
+  align-items: center;
+  gap: 1em;
+}
+.container {
+  width: 85%;
+  margin: 0 auto;
+}
+.max-w-container {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+.pt-3 {
+  padding-top: 3em;
+}
+h1 {
+  font-size: 80px;
+  font-weight: 400;
+  line-height: 1;
+  color: var(--white);
+}
