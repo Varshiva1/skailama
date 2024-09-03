@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const baseUrl = process.env.REACT_API_BASEURL;
+const baseUrl = process.env.REACT_APP_API_BASEURL;
 
 const get = async (endPoint, params = {}) => {
   const url = baseUrl + endPoint;
