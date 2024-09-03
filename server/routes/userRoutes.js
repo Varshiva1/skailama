@@ -8,6 +8,7 @@ import {
   
   // Signup User Route
   router.post('/signup', createUser);
+   
   
   // Login User Route
   router.post('/login', loginUser);

@@ -5,6 +5,7 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
+
 const JWT_SECRET='1234'
 
 export const createUser = async (req, res) => {
