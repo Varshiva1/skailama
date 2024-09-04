@@ -1,0 +1,6 @@
+{
+  "LOGIN": "/login",
+  "REGISTER": "/signup",
+  "CREATE_PROJECT": "/projects",
+  "GET_PROJECT_LIST": "/projects"
+}

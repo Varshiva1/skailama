@@ -1,15 +1,36 @@
-import { useState } from "react";
+import { notification } from "antd";
 import ProjectCard from "./ProjectCard";
 import styles from "./styles.module.css";
+import { useEffect, useState } from "react";
 import Button from "../../components/Button";
+import fetchApi from "../../services/api-call";
 import CreateProjectModal from "./CreateProjectModal";
 import LogoHeading from "../../components/LogoHeading";
 import noProjectIcon from "../../assets/icons/new-project.svg";
 import { BellOutlined, SettingOutlined } from "@ant-design/icons";
+import apiEndPoints from "../../services/api-call/apiEndPoints.json";
 
 export default function ProjectsList() {
   const [projectList, setProjectList] = useState([]);
   const [openModal, setOpenModal] = useState(false);
+
+  const getProjectList = async () => {
+    setProjectList((await fetchApi.get(apiEndPoints.GET_PROJECT_LIST)) || []);
+  };
+
+  const handleSave = async (v) => {
+    const res = await fetchApi.post(apiEndPoints.CREATE_PROJECT, v);
+    if (res.status) {
+      setOpenModal(false);
+      getProjectList();
+    } else {
+      notification.warning({ message: res.error });
+    }
+  };
+
+  useEffect(() => {
+    getProjectList();
+  }, []);
 
   return (
     <div className="flex-col" style={{ padding: "3em 5em" }}>
@@ -54,10 +75,7 @@ export default function ProjectsList() {
       <CreateProjectModal
         open={openModal}
         onCancel={() => setOpenModal(false)}
-        onSave={(v) => {
-          setProjectList([...projectList, v]);
-          setOpenModal(false);
-        }}
+        onSave={handleSave}
       />
     </div>
   );

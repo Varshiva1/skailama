@@ -29,7 +29,7 @@ export default function CreateProjectModal({ open, onCancel, onSave }) {
       >
         <Form.Item
           label="Enter Project Name:"
-          name="project_name"
+          name="title"
           rules={[{ required: true, message: "Project Name can't be empty" }]}
         >
           <Input placeholder="Type here" size="large" />

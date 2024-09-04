@@ -1,43 +1,32 @@
-import fetchApi from "../../api-service";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
 import styles from "./styles.module.css";
 import Button from "../../components/Button";
 import { useNavigate } from "react-router-dom";
+import fetchApi from "../../services/api-call";
 import logo from "../../assets/icons/logo.svg";
 import LogoHeading from "../../components/LogoHeading";
 import { Checkbox, Form, Input, notification } from "antd";
-import apiEndPoints from "../../api-service/apiEndPoints.json";
-import { useState } from "react";
+import apiEndPoints from "../../services/api-call/apiEndPoints.json";
+import { saveAuthData } from "../../services/redux/actions/authActions";
 
 export default function Auth() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [form] = Form.useForm();
-  const [registerForm] = Form.useForm();
+
   const [isLogin, setIsLogin] = useState(true); // Toggle state for login/register
 
   const handleLogin = async (v) => {
-    const body = {
-      email: v.email,
-      password: v.password
-    };
-    const res = await fetchApi.post(apiEndPoints.LOGIN, body);
+    const res = await fetchApi.post(
+      v?.name ? apiEndPoints.REGISTER : apiEndPoints.LOGIN,
+      v
+    );
     if (res.status) {
+      dispatch(saveAuthData(res));
       navigate("/projects");
     } else {
-      notification.warning({ message: "Invalid username or password" });
-    }
-  };
-
-  const handleRegister = async (v) => {
-    const body = {
-      name: v.name,            // Include name for registration
-      email: v.email,
-      password: v.password
-    };
-    const res = await fetchApi.post(apiEndPoints.REGISTER, body);
-    if (res.status) {
-      navigate("/projects");
-    } else {
-      notification.warning({ message: "Registration failed" });
+      notification.error({ message: res.error });
     }
   };
 
@@ -70,97 +59,74 @@ export default function Auth() {
         <br />
 
         {/* Toggle between Login and Register */}
-        {isLogin ? (
-          <div className="flex-col">
-            <Form form={form} onFinish={handleLogin}>
-              <Form.Item name="email" rules={[{ required: true, message: "Email is required" }]}>
-                <Input placeholder="Email Address" size="large" />
-              </Form.Item>
-              <Form.Item
-                name="password"
-                rules={[{ required: true, message: "Password is required" }]}
-              >
-                <Input placeholder="Password" type="password" size="large" />
-              </Form.Item>
-              <div className="space-between">
-                <p>
-                  <Checkbox />
-                  &nbsp; Remember me
-                </p>
-                <p style={{ color: "var(--link)" }}>Forgot password?</p>
-              </div>
-              <br />
-              <Button
-                type="submit"
-                theme="primary"
-                styles={{ width: "100%", justifyContent: "center" }}
-              >
-                Login
-              </Button>
-            </Form>
-
-            <div style={{ marginTop: "20px" }}>
-              <p>
-                Don't have an account?{" "}
-                <span
-                  style={{ color: "var(--link)", cursor: "pointer" }}
-                  onClick={() => setIsLogin(false)} // Switch to Register
+        <div className="flex-col">
+          <Form form={form} onFinish={handleLogin}>
+            {isLogin ? (
+              <>
+                <Form.Item
+                  name="email"
+                  rules={[{ required: true, message: "" }]}
                 >
-                  Create Account
-                </span>
-              </p>
-            </div>
-          </div>
-        ) : (
-          <div className="flex-col">
-            <Form form={registerForm} onFinish={handleRegister}>
-              <Form.Item
-                name="name"
-                rules={[{ required: true, message: "Name is required" }]}
-              >
-                <Input placeholder="Name" size="large" />
-              </Form.Item>
-              <Form.Item
-                name="email"
-                rules={[{ required: true, message: "Email is required" }]}
-              >
-                <Input placeholder="Email Address" size="large" />
-              </Form.Item>
-              <Form.Item
-                name="password"
-                rules={[{ required: true, message: "Password is required" }]}
-              >
-                <Input placeholder="Password" type="password" size="large" />
-              </Form.Item>
-              <Form.Item
-                name="confirmPassword"
-                rules={[{ required: true, message: "Please confirm your password" }]}
-              >
-                <Input placeholder="Confirm Password" type="password" size="large" />
-              </Form.Item>
-              <br />
-              <Button
-                type="submit"
-                theme="primary"
-                styles={{ width: "100%", justifyContent: "center" }}
-              >
-                Create Account
-              </Button>
-            </Form>
-
-            <div style={{ marginTop: "20px" }}>
-              <p>
-                Already have an account?{" "}
-                <span
-                  style={{ color: "var(--link)", cursor: "pointer" }}
-                  onClick={() => setIsLogin(true)} // Switch to Login
+                  <Input placeholder="Email Address" size="large" />
+                </Form.Item>
+                <Form.Item
+                  name="password"
+                  rules={[{ required: true, message: "" }]}
                 >
-                  Login
-                </span>
-              </p>
-            </div>
+                  <Input placeholder="Password" type="password" size="large" />
+                </Form.Item>
+                <div className="space-between">
+                  <p>
+                    <Checkbox />
+                    &nbsp; Remember me
+                  </p>
+                  <p style={{ color: "var(--link)" }}>Forgot password?</p>
+                </div>
+              </>
+            ) : (
+              <>
+                <Form.Item
+                  name="name"
+                  rules={[{ required: true, message: "" }]}
+                >
+                  <Input placeholder="Name" size="large" />
+                </Form.Item>
+                <Form.Item
+                  name="email"
+                  rules={[{ required: true, message: "" }]}
+                >
+                  <Input placeholder="Email Address" size="large" />
+                </Form.Item>
+                <Form.Item
+                  name="password"
+                  rules={[{ required: true, message: "" }]}
+                >
+                  <Input placeholder="Password" type="password" size="large" />
+                </Form.Item>
+              </>
+            )}
+            <br />
+            <Button
+              type="submit"
+              theme="primary"
+              styles={{ width: "100%", justifyContent: "center" }}
+            >
+              {isLogin ? "Login" : "Create Account"}
+            </Button>
+          </Form>
+          <div>
+            {isLogin ? "Don't have an account? " : "Already have an account? "}
+            <span
+              style={{ color: "var(--link)", cursor: "pointer" }}
+              onClick={() => {
+                form.resetFields();
+                setIsLogin(!isLogin);
+              }}
+            >
+              {isLogin ? "Create Account" : "Login"}
+            </span>
           </div>
-        )}
+        </div>
       </div>
     </div>
   );
