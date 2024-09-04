@@ -3,7 +3,8 @@ import express from 'express';
 import connectDB from './db.js';
 import cors from 'cors'; 
 import userRoutes from './routes/userRoutes.js';
-// import discussionRoutes from './routes/discussionRoutes.js';
+
+app.get("/", (req, res) => res.send("Express on Vercel"));
 
 const app = express();
 connectDB();
@@ -16,3 +17,5 @@ app.use('/api', userRoutes);
 console.log('Routes registered');
 const PORT = 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+
+module.exports = app;
