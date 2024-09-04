@@ -2,5 +2,9 @@
   "LOGIN": "/login",
   "REGISTER": "/signup",
   "CREATE_PROJECT": "/projects",
-  "GET_PROJECT_LIST": "/projects"
+  "GET_PROJECT_LIST": "/projects",
+  "ADD_PODCAST": "/projects/podcasts/",
+  "EDIT_PODCAST": "/podcasts/edit/",
+  "GET_PODCAST_LIST": "/projects/podcasts/",
+  "DELETE_PODCAST": "/podcasts/"
 }

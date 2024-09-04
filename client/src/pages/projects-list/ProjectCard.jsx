@@ -1,3 +1,4 @@
+import moment from "moment";
 import styles from "./styles.module.css";
 import { useNavigate } from "react-router-dom";
 
@@ -5,7 +6,7 @@ export default function ProjectCard({ data }) {
   const navigate = useNavigate();
 
   const getInitials = () => {
-    const name = data.project_name.split(" ");
+    const name = data.title.split(" ");
     let initials = "";
     if (name.length === 1) {
       initials = name[0][0] + name[0][1];
@@ -18,14 +19,16 @@ export default function ProjectCard({ data }) {
   return (
     <div
       className={`flex ${styles.project_card}`}
-      onClick={() => navigate(`/${data.project_name}/Add your podcast`)}
+      onClick={() => navigate(`/${data.title}/Add your podcast?id=${data.id}`)}
     >
       <div className={styles.project_name_initials}>{getInitials()}</div>
       <div>
-        <p className={styles.project_name}>{data.project_name}</p>
-        <p style={{ fontSize: 12 }}>4 Episodes</p>
+        <p className={styles.project_name}>{data.title}</p>
+        <p style={{ fontSize: 12 }}>{data.episodes} Episodes</p>
         <br />
-        <p style={{ fontSize: 12 }}>Last edited a week ago</p>
+        <p style={{ fontSize: 12 }}>
+          Last edited {moment(data.updatedAt).fromNow()}
+        </p>
       </div>
     </div>
   );

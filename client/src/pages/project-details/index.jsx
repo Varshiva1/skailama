@@ -5,20 +5,28 @@ import styles from "./styles.module.css";
 import PodcastWidget from "./PodcastWidget";
 import { useParams } from "react-router-dom";
 import CreateAndRepurse from "./CreateAndRepurse";
+import Help from "./Help";
+import AccountSettings from "./AccountSettings";
+import { BellOutlined } from "@ant-design/icons";
+import logOutIcon from "../../assets/icons/logout.svg";
 
 export default function ProjectDetails() {
   const { filename, tab } = useParams();
+  const queryParams = new URLSearchParams(window.location.search);
+  const projectId = queryParams.get("id");
 
   const activeTabContent = {
-    "Add your podcast": <AddPodcast />,
+    "Add your podcast": <AddPodcast {...{ projectId }} />,
     "Create & repurpose": <CreateAndRepurse />,
     "Podcast widget": <PodcastWidget />,
     Upgrade: <Upgrade />,
+    help: <Help />,
+    "account settings": <AccountSettings />,
   };
 
   return (
     <div className="flex" style={{ gap: 0, alignItems: "flex-start" }}>
-      <SideBar {...{ filename, tab }} />
+      <SideBar {...{ filename, tab, projectId }} />
       <div
         className="flex-col"
         style={{
@@ -33,7 +41,16 @@ export default function ProjectDetails() {
             Home Page / {filename} /{" "}
             <span style={{ color: "var(--primary-color)" }}>{tab}</span>
           </div>
+          <div className="flex">
+            <div className={styles.icon_bg}>
+              <BellOutlined />
+            </div>
+            <div className={styles.icon_bg}>
+              <img src={logOutIcon} alt="logout" width={16} height={16} />
+            </div>
+          </div>
         </div>
+        <br />
         <div>{activeTabContent[tab]}</div>
       </div>
     </div>

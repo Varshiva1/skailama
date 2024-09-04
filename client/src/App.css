@@ -44,3 +44,11 @@ h1 {
 h2 {
   font-size: 30px;
 }
+.ant-table-thead tr th {
+  background-color: #ededed !important;
+}
+.ant-table-tbody tr td {
+  font-size: 16px !important;
+  color: #646464 !important;
+  font-weight: 600 !important;
+}

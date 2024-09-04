@@ -15,12 +15,14 @@ export default function ProjectsList() {
   const [openModal, setOpenModal] = useState(false);
 
   const getProjectList = async () => {
-    setProjectList((await fetchApi.get(apiEndPoints.GET_PROJECT_LIST)) || []);
+    const res = await fetchApi.get(apiEndPoints.GET_PROJECT_LIST);
+    setProjectList(res.projects || []);
   };
 
   const handleSave = async (v) => {
     const res = await fetchApi.post(apiEndPoints.CREATE_PROJECT, v);
     if (res.status) {
+      notification.success({ message: res.message });
       setOpenModal(false);
       getProjectList();
     } else {
@@ -65,8 +67,8 @@ export default function ProjectsList() {
             <CreateButton {...{ setOpenModal }} />
           </div>
           <div className="flex" style={{ flexWrap: "wrap" }}>
-            {projectList.map((ele, idx) => (
-              <ProjectCard key={idx} data={ele} />
+            {projectList.map((ele) => (
+              <ProjectCard key={ele.id} data={ele} />
             ))}
           </div>
         </div>
