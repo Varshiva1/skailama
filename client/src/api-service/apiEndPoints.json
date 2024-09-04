@@ -1,3 +1,5 @@
 {
-    "LOGIN":"/login"
+    "LOGIN":"/login",
+    "REGISTER":"signup",
+    "CREATEPROJECT":"projects"
 }
