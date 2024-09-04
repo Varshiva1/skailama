@@ -15,9 +15,9 @@ router.post('/projects', authenticateUser, createProject);
 router.get('/projects', authenticateUser, getProjects);
 
 // Podcast routes
-router.post('/projects/:projectId/podcasts', authenticateUser, addPodcast);
-router.get('/projects/:projectId/podcasts', authenticateUser, getPodcasts);
-router.post('/podcasts/:podcastId/edit', authenticateUser, editPodcast);
+router.post('/projects/podcasts/:projectId', authenticateUser, addPodcast);
+router.get('/projects/podcasts/:projectId', authenticateUser, getPodcasts);
+router.post('/podcasts/edit/:podcastId', authenticateUser, editPodcast);
 router.delete('/podcasts/:podcastId', authenticateUser, deletePodcast);
 
 export default router;
