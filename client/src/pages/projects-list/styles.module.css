@@ -12,6 +12,7 @@
   border: 1px solid #999999;
   border-radius: 10px;
   padding: 0.5em;
+  cursor: pointer;
 }
 .project_name_initials {
   text-transform: uppercase;

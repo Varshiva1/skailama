@@ -1,6 +1,9 @@
 import styles from "./styles.module.css";
+import { useNavigate } from "react-router-dom";
 
 export default function ProjectCard({ data }) {
+  const navigate = useNavigate();
+
   const getInitials = () => {
     const name = data.project_name.split(" ");
     let initials = "";
@@ -13,7 +16,10 @@ export default function ProjectCard({ data }) {
   };
 
   return (
-    <div className={`flex ${styles.project_card}`}>
+    <div
+      className={`flex ${styles.project_card}`}
+      onClick={() => navigate(`/${data.project_name}/Add your podcast`)}
+    >
       <div className={styles.project_name_initials}>{getInitials()}</div>
       <div>
         <p className={styles.project_name}>{data.project_name}</p>
