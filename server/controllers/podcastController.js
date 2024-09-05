@@ -16,6 +16,9 @@ export const addPodcast = async (req, res) => {
     }
 
     const newPodcast = await Podcast.create({ name, link, projectId });
+
+    await Project.findByIdAndUpdate(projectId, { $set: { updatedAt: new Date() } });
+
     res.status(201).json({
       message: 'Podcast added successfully',
       podcast: {
@@ -67,6 +70,11 @@ export const editPodcast = async (req, res) => {
       return res.status(404).json({ error: 'Podcast not found' });
     }
 
+    await Project.findByIdAndUpdate(
+      updatedPodcast.projectId,
+      { $set: { updatedAt: new Date() } }
+    );
+
     res.status(200).json({
       message: 'Podcast updated successfully',
       podcast: {
@@ -91,6 +99,11 @@ export const deletePodcast = async (req, res) => {
     if (!deletedPodcast) {
       return res.status(404).json({ error: 'Podcast not found' });
     }
+
+    await Project.findByIdAndUpdate(
+      deletedPodcast.projectId,
+      { $set: { updatedAt: new Date() } }
+    );
 
     res.status(200).json({
       message: 'Podcast deleted successfully',
