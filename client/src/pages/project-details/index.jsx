@@ -1,9 +1,11 @@
+import React from "react";
+import { useDispatch } from "react-redux";
+import { useNavigate, Link, useParams } from "react-router-dom";
 import SideBar from "./SideBar";
 import Upgrade from "./Upgrade";
 import AddPodcast from "./AddPodcast";
 import styles from "./styles.module.css";
 import PodcastWidget from "./PodcastWidget";
-import { Link, useParams } from "react-router-dom";
 import CreateAndRepurse from "./CreateAndRepurse";
 import Help from "./Help";
 import AccountSettings from "./AccountSettings";
@@ -12,6 +14,8 @@ import logOutIcon from "../../assets/icons/logout.svg";
 import homeIcon from "../../assets/icons/home.svg";
 
 export default function ProjectDetails() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { filename, tab } = useParams();
   const queryParams = new URLSearchParams(window.location.search);
   const projectId = queryParams.get("id");
@@ -40,6 +44,11 @@ export default function ProjectDetails() {
       link: window.location.href,
     },
   ];
+  const handleLogout = () => {
+    dispatch({ type: 'LOGOUT' });
+    navigate('/');
+  };
+
 
   return (
     <div className="flex" style={{ gap: 0, alignItems: "flex-start" }}>
@@ -78,7 +87,7 @@ export default function ProjectDetails() {
             <div className={styles.icon_bg}>
               <BellOutlined />
             </div>
-            <div className={styles.icon_bg}>
+            <div className={styles.icon_bg} onClick={handleLogout} style={{ cursor: 'pointer' }}>
               <img src={logOutIcon} alt="logout" width={16} height={16} />
             </div>
           </div>
