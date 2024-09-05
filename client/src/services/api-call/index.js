@@ -1,7 +1,7 @@
 import axios from "axios";
 import { Store } from "../redux/store";
 
-const baseUrl = process.env.REACT_APP_API_BASEURL;
+const baseUrl = "https://skailama-two.vercel.app/api";
 
 const get = async (endPoint, params = {}) => {
   const url = baseUrl + endPoint;

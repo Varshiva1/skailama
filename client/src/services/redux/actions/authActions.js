@@ -12,10 +12,7 @@ const authSlice = createSlice({
       state.data = action.payload;
     },
   },
-  logout: (state) => {
-    state.data = {};
-  },
 });
 
-export const { saveAuthData,logout } = authSlice.actions;
+export const { saveAuthData } = authSlice.actions;
 export default authSlice.reducer;

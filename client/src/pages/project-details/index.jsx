@@ -1,6 +1,7 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate, Link, useParams } from "react-router-dom";
+import { saveAuthData } from "../../services/redux/actions/authActions";
 import SideBar from "./SideBar";
 import Upgrade from "./Upgrade";
 import AddPodcast from "./AddPodcast";
@@ -45,10 +46,8 @@ export default function ProjectDetails() {
     },
   ];
   const handleLogout = () => {
-    dispatch({ type: 'LOGOUT' });
-    navigate('/');
+    dispatch(saveAuthData({}));
   };
-
 
   return (
     <div className="flex" style={{ gap: 0, alignItems: "flex-start" }}>
