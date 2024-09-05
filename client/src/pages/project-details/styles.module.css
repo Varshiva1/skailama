@@ -18,10 +18,6 @@
   filter: invert(27%) sepia(82%) saturate(6345%) hue-rotate(260deg)
     brightness(70%) contrast(88%);
 }
-.breadcrumbs {
-  color: #999999;
-  font-weight: 600;
-}
 .podcast_upload_options {
   background: #ffffff;
   border: 1px solid #c7c7c7;

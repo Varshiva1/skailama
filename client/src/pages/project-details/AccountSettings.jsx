@@ -3,7 +3,7 @@ import { UserOutlined } from "@ant-design/icons";
 import { useSelector } from "react-redux";
 
 export default function AccountSettings() {
-  const user = useSelector((state) => state.auth);
+  const user = useSelector((state) => state.auth.data);
 
   return (
     <>
@@ -14,11 +14,21 @@ export default function AccountSettings() {
         <Avatar size={100} icon={<UserOutlined />} />
         <div>
           <p>User Name</p>
-          <Input size="large" value={user?.name || ""} />
+          <Input
+            size="large"
+            value={user?.name || ""}
+            readOnly
+            style={{ width: 300 }}
+          />
         </div>
         <div>
           <p>Email</p>
-          <Input size="large" value={user?.email || ""} />
+          <Input
+            size="large"
+            value={user?.email || ""}
+            readOnly
+            style={{ width: 300 }}
+          />
         </div>
       </div>
     </>

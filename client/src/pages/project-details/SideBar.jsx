@@ -10,7 +10,7 @@ import podacstWidgetIcon from "../../assets/icons/copy.svg";
 import { SettingOutlined, UserOutlined } from "@ant-design/icons";
 
 export default function SideBar({ filename, tab, projectId }) {
-  const user = useSelector((state) => state.auth);
+  const user = useSelector((state) => state.auth.data);
 
   const menuOptions = [
     {
